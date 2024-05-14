@@ -21,6 +21,12 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_SPACE] and self.rect.bottom >= 300:
             self.gravity = -20
             self.jump_sound.play()
+        elif keys[pygame.K_a]:
+            if self.rect.left >= 10:
+                self.rect.left -= 5
+        elif keys[pygame.K_d]:
+            if self.rect.right <= 800:
+                self.rect.right += 5
 
     def apply_gravity(self):
         self.gravity += 1
@@ -35,6 +41,9 @@ class Player(pygame.sprite.Sprite):
             self.player_index += 0.1
             if self.player_index >= len(self.player_walk) : self.player_index = 0
             self.image = self.player_walk[int(self.player_index)]
+    
+    def reset_pos(self):
+        self.rect = self.image.get_rect(midbottom = (80,300))
 
     def update(self):
         self.player_input()

@@ -38,5 +38,6 @@ class GameEngine:
                 self.update()
             elif self.game_logic.game_active == False:
                 self.graphic.gameover()
+                self.player.sprite.reset_pos()
             pygame.display.update()
             self.clock.tick(60)

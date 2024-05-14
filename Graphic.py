@@ -12,9 +12,8 @@ class Graphic():
         self.sky_surface = Sprite('graphics/Sky.png', 0, 0)
         self.ground_surface = Sprite('graphics/ground.png', 0, 300)
         
-        player_stand = pygame.image.load('graphics/Player/player_stand.png').convert_alpha()
-        self.player_stand = pygame.transform.rotozoom(player_stand,0,2)
-        self.player_stand_rect = player_stand.get_rect(center = (360,150))
+        self.player_stand = Sprite('graphics/Player/player_stand.png', 400, 200, True)
+        self.player_stand.transform_rotozoom(0,2)
         
         self.game_name = Label('Pixel Runner', 400, 80)
         self.game_message = Label('Press space to run', 400, 330)
@@ -34,7 +33,8 @@ class Graphic():
         
     def gameover(self):
         self.screen.fill((94,129,162))
-        self.screen.blit(self.player_stand,self.player_stand_rect)
+
+        self.player_stand.draw(self.screen)
 
         self.score_message.set_text(f'Your score: {self.score}')
         self.game_name.draw(self.screen)
