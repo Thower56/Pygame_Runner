@@ -4,6 +4,8 @@ import pygame
 class Obstacle(pygame.sprite.Sprite):
     def __init__(self, type):
         super().__init__()
+        
+        self.speed = 6
 
         if type == 'fly':
             fly_1 = pygame.image.load('graphics/Fly/Fly1.png').convert_alpha()
@@ -27,9 +29,12 @@ class Obstacle(pygame.sprite.Sprite):
 
     def update(self):
         self.animation_state()
-        self.rect.x -= 6
+        self.rect.x -= self.speed 
         self.destroy()
 
     def destroy(self):
         if self.rect.x <= -100:
             self.kill()
+            
+    def speed_up(self, speed):
+        self.speed += speed
