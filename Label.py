@@ -9,17 +9,17 @@ class Label():
         self.text = self.font.render(p_text, False, self.color)
         self.text_rect = self.text.get_rect(center = (self.pos_x, self.pos_y))
         
-    def draw(self, p_screen):
+    def draw(self, p_screen) -> None:
         p_screen.blit(self.text, self.text_rect)
         
-    def set_pos(self,p_pos_x, p_pos_y):
+    def set_pos(self,p_pos_x, p_pos_y) -> None:
         self.pos_x, self.pos_y = p_pos_x, p_pos_y
     
-    def set_color(self, p_color):
+    def set_color(self, p_color) -> None:
         self.color = p_color
         
-    def set_font(self, p_font):
+    def set_font(self, p_font) -> None:
         self.font = p_font
     
-    def set_text(self, p_text):
+    def set_text(self, p_text) -> None:
         self.text = self.font.render(p_text, False, self.color)

@@ -12,6 +12,16 @@ class Obstacle(pygame.sprite.Sprite):
             fly_2 = pygame.image.load('graphics/Fly/Fly2.png').convert_alpha()
             self.frames = [fly_1, fly_2]
             y_pos = 210
+        elif type == 'dog':
+            dog_1 = pygame.image.load('graphics/Dog/Dog1.png').convert_alpha()
+            dog_2 = pygame.image.load('graphics/Dog/Dog2.png').convert_alpha()
+            self.frames = [dog_1, dog_2]
+            y_pos = 305
+        elif type == 'bird':
+            bird_1 = pygame.image.load('graphics/Bird/Bird1.png').convert_alpha()
+            bird_2 = pygame.image.load('graphics/Bird/Bird2.png').convert_alpha()
+            self.frames = [bird_1, bird_2]
+            y_pos = 150
         else:
             snail_1 = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
             snail_2 = pygame.image.load('graphics/snail/snail2.png').convert_alpha()
@@ -22,19 +32,19 @@ class Obstacle(pygame.sprite.Sprite):
         self.image = self.frames[self.animation_index]
         self.rect = self.image.get_rect(midbottom = (randint(900,1100), y_pos))
 
-    def animation_state(self):
+    def animation_state(self) -> None:
         self.animation_index += 0.1
         if self.animation_index >= len(self.frames): self.animation_index = 0
         self.image = self.frames[int(self.animation_index)]
 
-    def update(self):
+    def update(self) -> None:
         self.animation_state()
         self.rect.x -= self.speed 
         self.destroy()
 
-    def destroy(self):
+    def destroy(self) -> None:
         if self.rect.x <= -100:
             self.kill()
             
-    def speed_up(self, speed):
+    def speed_up(self, speed) -> None:
         self.speed += speed

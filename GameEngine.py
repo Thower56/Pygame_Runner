@@ -24,37 +24,41 @@ class GameEngine:
 
         self.levels = [self.level_1, self.level_2, self.level_3]
         self.level_index = 0
+        self.level_reached = 1
         
         self.music = Sound()
         self.music.play()
         
         self.clock = pygame.time.Clock()
 
-    def update(self):
+    def update(self) -> None:
         self.player.update()
         self.levels[self.level_index % len(self.levels)].get_obstacles().update()
         self.game_logic.calculate_score()
         self.graphic.display_score(self.game_logic.get_score())
+        self.graphic.display_level(self.level_reached)
         self.game_logic.collisions_sprite(self.player, self.levels[self.level_index % len(self.levels)].get_obstacles())
         self.game_logic.check_win_condition(self.levels[self.level_index % len(self.levels)].get_obstacles())
 
-    def run(self):
+    def run(self) -> None:
         while True:
             for event in pygame.event.get():
                 self.game_logic.handle_event(event, self.levels[self.level_index % len(self.levels)].get_obstacles())
                 
             if self.game_logic.game_active:
                 self.graphic.draw(self.player, self.levels[self.level_index % len(self.levels)])
+                self.level_reached = self.level_index + 1
                 self.update()
   
             elif not self.game_logic.game_active:
                 if self.game_logic.get_score() >= 10:
                     self.graphic.leveldone()
                     self.level_index = self.game_logic.change_level()
+                    self.level_reached += 1
                     self.player.sprite.reset_pos()
 
                 else:
-                    self.graphic.gameover(self.game_logic.get_score())
+                    self.graphic.gameover(self.game_logic.get_score(), self.level_reached)
                     self.player.sprite.reset_pos()
                     self.level_index = 0
                     
