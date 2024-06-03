@@ -6,6 +6,7 @@ class GameLogic():
     def __init__(self):
         self.game_active = False
         self.stage_done = False
+        self.start_time = 0
         self.index_level = 1
         self.score = 0
         self.obstacle_timer = pygame.USEREVENT + 1
@@ -36,10 +37,12 @@ class GameLogic():
 
 
     def calculate_score(self) -> None:
-        current_time = int(pygame.time.get_ticks()/1000) - self.start_time
-        self.score = current_time
+        if self.game_active:
+            current_time = int(pygame.time.get_ticks()/1000) - self.start_time
+            self.score = current_time
     
     def get_score(self) -> int:
+        self.calculate_score()
         return self.score
     
     def check_win_condition(self, p_obstacle_group) -> None:
