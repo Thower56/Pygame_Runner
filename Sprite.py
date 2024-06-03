@@ -25,5 +25,8 @@ class Sprite():
         self.sprite = pygame.transform.rotozoom(self.sprite, angle, scale)
         self.sprite_rect = self.sprite.get_rect(center = (self.pos_x, self.pos_y))
         
+    def transform_flip(self) -> None:
+        self.sprite = pygame.transform.flip(self.sprite, True, False)
+        
         
         

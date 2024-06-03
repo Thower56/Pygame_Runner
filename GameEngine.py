@@ -34,7 +34,7 @@ class GameEngine:
     def update(self) -> None:
         self.player.update()
         self.levels[self.level_index % len(self.levels)].get_obstacles().update()
-        self.game_logic.calculate_score()
+        self.levels[self.level_index % len(self.levels)].moving()
         self.graphic.display_score(self.game_logic.get_score())
         self.graphic.display_level(self.level_reached)
         self.game_logic.collisions_sprite(self.player, self.levels[self.level_index % len(self.levels)].get_obstacles())
